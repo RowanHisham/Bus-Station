@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="559.0" prefWidth="981.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.CustomerMainFormController">
+   <children>
+      <AnchorPane layoutY="74.0" prefHeight="487.0" prefWidth="208.0" style="-fx-background-color: #00baff;">
+         <children>
+            <Circle fill="WHITE" layoutX="107.0" layoutY="86.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Label fx:id="lblUserName" layoutX="52.0" layoutY="134.0" text="Lorem Ipsum" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Line endX="53.39703369140625" layoutX="128.0" layoutY="199.0" startX="-100.0" stroke="WHITE" />
+            <JFXButton fx:id="btn_Dashboard" layoutX="-3.0" layoutY="229.0" onAction="#buttonOnAction" prefHeight="55.0" prefWidth="211.0" text="Dashboard" textFill="WHITE" />
+            <JFXButton fx:id="btn_Trips" layoutX="-1.0" layoutY="283.0" onAction="#buttonOnAction" prefHeight="55.0" prefWidth="211.0" text="Trips" textFill="WHITE" />
+            <JFXButton fx:id="btn_logOutCustomer" layoutX="76.0" layoutY="164.0" onAction="#buttonOnAction" style="-fx-background-color: #0096cc;" text="Log out" textFill="WHITE" />
+            <Group layoutX="86.0" layoutY="70.0" opacity="0.27">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00baff" height="31.0" layoutX="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="7.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00baff" height="15.0" layoutY="16.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="7.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00baff" height="15.0" layoutX="36.0" layoutY="16.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="7.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00baff" height="23.0" layoutX="9.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="7.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00baff" height="23.0" layoutX="27.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="7.0" />
+               </children>
+            </Group>
+            <JFXButton fx:id="btn_AccountSettings" layoutX="-3.0" layoutY="338.0" onAction="#buttonOnAction" prefHeight="55.0" prefWidth="211.0" text="Account Settings" textFill="WHITE" />
+         </children></AnchorPane>
+      <AnchorPane fx:id="pn_Trips" layoutX="208.0" layoutY="75.0" prefHeight="487.0" prefWidth="774.0" style="-fx-background-color: #e7e7e7;">
+         <children>
+            <AnchorPane layoutX="14.0" layoutY="10.0" prefHeight="464.0" prefWidth="522.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <Label layoutX="19.0" layoutY="7.0" prefHeight="58.0" prefWidth="224.0" text="Trips" textFill="#00baff">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+                  <TableView layoutX="22.0" layoutY="70.0" prefHeight="319.0" prefWidth="476.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="C1" />
+                      <TableColumn prefWidth="75.0" text="C2" />
+                    </columns>
+                  </TableView>
+                  <JFXButton layoutX="216.0" layoutY="414.0" style="-fx-background-color: #00baff;" text="Book Ticket" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="536.0" layoutY="10.0" prefHeight="464.0" prefWidth="224.0" style="-fx-background-color: #f8f8f8;">
+               <children>
+                  <Label layoutX="17.0" layoutY="29.0" prefHeight="58.0" prefWidth="129.0" text="Search" textFill="#838383">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField layoutX="28.0" layoutY="121.0" prefHeight="27.0" prefWidth="169.0" promptText="Source" />
+                  <JFXTextField layoutX="29.0" layoutY="172.0" prefHeight="27.0" prefWidth="169.0" promptText="Destination" />
+                  <JFXTextField layoutX="27.0" layoutY="225.0" prefHeight="27.0" prefWidth="169.0" promptText="Number of avaliable seats" />
+                  <JFXButton layoutX="65.0" layoutY="399.0" style="-fx-background-color: #00baff;" text="Apply Filters" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+         </children></AnchorPane>
+      <AnchorPane fx:id="pn_AccountSettings" layoutX="208.0" layoutY="74.0" prefHeight="486.0" prefWidth="774.0" style="-fx-background-color: #e7e7e7;">
+         <children>
+            <AnchorPane layoutX="12.0" layoutY="13.0" prefHeight="464.0" prefWidth="749.0" style="-fx-background-color: #ffffff;" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="pn_Dashboard" layoutX="208.0" layoutY="75.0" prefHeight="486.0" prefWidth="774.0" style="-fx-background-color: #e7e7e7;">
+         <children>
+            <AnchorPane layoutX="19.0" layoutY="16.0" prefHeight="454.0" prefWidth="428.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <Label layoutX="22.0" layoutY="9.0" prefHeight="58.0" prefWidth="224.0" text="Dashboard" textFill="#00baff">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="24.0" layoutY="42.0" prefHeight="58.0" prefWidth="224.0" text="Booked Trips" textFill="#757575">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+                  <TableView layoutX="25.0" layoutY="103.0" prefHeight="274.0" prefWidth="384.0">
+                    <columns>
+                      <TableColumn prefWidth="66.56843566894531" text="Source" />
+                      <TableColumn prefWidth="81.99655151367188" text="Destination" />
+                    </columns>
+                  </TableView>
+                  <JFXButton layoutX="80.0" layoutY="397.0" style="-fx-background-color: #00baff;" text="Cancel Selected Trip" textFill="WHITE" />
+                  <JFXButton layoutX="256.0" layoutY="397.0" style="-fx-background-color: #00baff;" text="Print Ticket" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="461.0" layoutY="16.0" prefHeight="289.0" prefWidth="298.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <Label layoutX="10.0" layoutY="-8.0" prefHeight="58.0" prefWidth="224.0" text="Previous Trips" textFill="#757575">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+                  <TableView layoutX="20.0" layoutY="44.0" prefHeight="191.0" prefWidth="262.0">
+                    <columns>
+                      <TableColumn prefWidth="75.0" text="Source" />
+                      <TableColumn prefWidth="83.568359375" text="Destination" />
+                    </columns>
+                  </TableView>
+                  <JFXButton layoutX="82.0" layoutY="249.0" style="-fx-background-color: #00baff;" text="Delete Selected Entry" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="461.0" layoutY="316.0" prefHeight="153.0" prefWidth="298.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <Label layoutX="18.0" layoutY="-3.0" prefHeight="58.0" prefWidth="224.0" text="Announcements" textFill="#00baff">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="74.0" layoutY="74.0" text="No current announcements" />
+                  <Line endX="45.813720703125" layoutX="132.0" layoutY="43.0" startX="-113.99993896484375" stroke="#a1a1a1" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="pn_title" prefHeight="74.0" prefWidth="981.0" style="-fx-background-color: #ffffff;">
+         <children>
+            <Label layoutX="67.0" layoutY="11.0" prefHeight="58.0" prefWidth="224.0" text="UltimateBS" textFill="#00baff">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <Group layoutX="18.0" layoutY="20.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00baff" height="31.0" layoutX="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="7.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00baff" height="15.0" layoutY="16.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="7.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00baff" height="15.0" layoutX="36.0" layoutY="16.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="7.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00baff" height="23.0" layoutX="9.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="7.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00baff" height="23.0" layoutX="27.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="7.0" />
+               </children>
+            </Group>
+            <JFXButton fx:id="btn_Close" layoutX="940.0" layoutY="25.0" onAction="#buttonOnAction" style="-fx-background-color: #00baff;" text="X" textFill="WHITE" />
+         </children>
+         <effect>
+            <DropShadow height="17.97" radius="6.27" spread="0.03" width="9.11" />
+         </effect>
+      </AnchorPane>
+   </children>
+</AnchorPane>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="559.0" prefWidth="981.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.DriverMainFormController">
+   <children>
+      <AnchorPane layoutY="74.0" prefHeight="487.0" prefWidth="208.0" style="-fx-background-color: #00baff;">
+         <children>
+            <Circle fill="WHITE" layoutX="107.0" layoutY="86.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Label layoutX="52.0" layoutY="134.0" text="Lorem Ipsum" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Line endX="53.39703369140625" layoutX="128.0" layoutY="199.0" startX="-100.0" stroke="WHITE" />
+            <JFXButton fx:id="btn_Dashboard" layoutX="-3.0" layoutY="229.0" onAction="#buttonOnAction" prefHeight="55.0" prefWidth="211.0" text="Dashboard" textFill="WHITE" />
+            <JFXButton fx:id="btn_logOutCustomer" layoutX="76.0" layoutY="164.0" onAction="#buttonOnAction" style="-fx-background-color: #0096cc;" text="Log out" textFill="WHITE" />
+            <Group layoutX="86.0" layoutY="70.0" opacity="0.27">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00baff" height="31.0" layoutX="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="7.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00baff" height="15.0" layoutY="16.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="7.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00baff" height="15.0" layoutX="36.0" layoutY="16.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="7.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00baff" height="23.0" layoutX="9.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="7.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00baff" height="23.0" layoutX="27.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="7.0" />
+               </children>
+            </Group>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="pn_Dashboard" layoutX="208.0" layoutY="75.0" prefHeight="486.0" prefWidth="774.0" style="-fx-background-color: #e7e7e7;">
+         <children>
+            <AnchorPane layoutX="19.0" layoutY="16.0" prefHeight="454.0" prefWidth="749.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <Label layoutX="22.0" layoutY="9.0" prefHeight="58.0" prefWidth="224.0" text="Dashboard" textFill="#00baff">
+                     <font>
+                        <Font size="27.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="24.0" layoutY="42.0" prefHeight="58.0" prefWidth="224.0" text="Trips" textFill="#757575">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+                  <TableView layoutX="25.0" layoutY="103.0" prefHeight="339.0" prefWidth="708.0">
+                     <columns>
+                        <TableColumn prefWidth="66.56843566894531" text="Source" />
+                        <TableColumn prefWidth="81.99655151367188" text="Destination" />
+                     </columns>
+                  </TableView>
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="pn_title" prefHeight="74.0" prefWidth="981.0" style="-fx-background-color: #ffffff;">
+         <children>
+            <Label layoutX="67.0" layoutY="11.0" prefHeight="58.0" prefWidth="224.0" text="UltimateBS" textFill="#00baff">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+            <Group layoutX="18.0" layoutY="20.0">
+               <children>
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00baff" height="31.0" layoutX="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="7.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00baff" height="15.0" layoutY="16.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="7.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00baff" height="15.0" layoutX="36.0" layoutY="16.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="7.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00baff" height="23.0" layoutX="9.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="7.0" />
+                  <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#00baff" height="23.0" layoutX="27.0" layoutY="8.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="7.0" />
+               </children>
+            </Group>
+            <JFXButton fx:id="btn_Close" layoutX="940.0" layoutY="25.0" onAction="#buttonOnAction" style="-fx-background-color: #00baff;" text="X" textFill="WHITE" />
+         </children>
+         <effect>
+            <DropShadow height="17.97" radius="6.27" spread="0.03" width="9.11" />
+         </effect>
+      </AnchorPane>
+   </children>
+</AnchorPane>
