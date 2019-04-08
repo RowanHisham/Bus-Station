@@ -6,7 +6,7 @@ public interface AdminActions {
 	public ArrayList<Trip> listTrips();
 	public ArrayList<Person> listDrivers();
 	
-	public Person AuthenticateLogInCustomer();
+	public Person AuthenticateLogInCustomer(String username , String password);
 	public Person AuthenticateLogInEmployee();
 	
 	public void saveVehicles(ArrayList<Vehicle> list);

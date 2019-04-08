@@ -13,7 +13,7 @@ public class Customer extends Person implements CustomerActions {
 	private Admin admin = new Admin();
 
 
-	Customer(String firstName, String lastName, String userName, String password, ArrayList<Integer> tripIDs) throws IOException{
+	Customer(String firstName, String lastName, String userName, String password, String[] tripIDs) throws IOException{
 		this.setFirstName(firstName);
 		this.setLastName(lastName);
 		this.setUserName(userName);
@@ -26,7 +26,7 @@ public class Customer extends Person implements CustomerActions {
 		return tripIDs;
 	}
 
-	public void setTripIDs(ArrayList<Integer> tripIDs) {
+	public void setTripIDs(String [] tripIDs) {
 		this.tripIDs = tripIDs;
 	}
 
