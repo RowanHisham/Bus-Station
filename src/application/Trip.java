@@ -1,4 +1,5 @@
 package application;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 enum StopType{
@@ -66,6 +67,7 @@ public class Trip {
 	}
 
 	public Date getTripDate() {
+       // SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
 		return tripDate;
 	}
 
@@ -73,16 +75,16 @@ public class Trip {
 		this.tripDate = tripDate;
 	}
 
-	public Vehicle getVehicle() {
-		return vehicle;
+	public String getVehicle() {
+		return vehicle.getModel();
 	}
 
 	public void setVehicle(Vehicle vehicle) {
 		this.vehicle = vehicle;
 	}
 
-	public boolean isInternal() {
-		return isInternal;
+	public String getIsInternal() {	
+		return isInternal?"Internal":"External";
 	}
 
 	public void setInternal(boolean isInternal) {
@@ -103,6 +105,10 @@ public class Trip {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	
+	public String getVehicleName() {
+		return vehicle.getModel();
 	}
 	
 	

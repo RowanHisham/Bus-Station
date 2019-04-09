@@ -4,7 +4,6 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -38,6 +37,11 @@
             </Group>
             <JFXButton fx:id="btn_AccountSettings" layoutX="-3.0" layoutY="338.0" onAction="#buttonOnAction" prefHeight="55.0" prefWidth="211.0" text="Account Settings" textFill="WHITE" />
          </children></AnchorPane>
+      <AnchorPane fx:id="pn_AccountSettings" layoutX="208.0" layoutY="74.0" prefHeight="486.0" prefWidth="774.0" style="-fx-background-color: #e7e7e7;">
+         <children>
+            <AnchorPane layoutX="12.0" layoutY="13.0" prefHeight="464.0" prefWidth="749.0" style="-fx-background-color: #ffffff;" />
+         </children>
+      </AnchorPane>
       <AnchorPane fx:id="pn_Trips" layoutX="208.0" layoutY="75.0" prefHeight="487.0" prefWidth="774.0" style="-fx-background-color: #e7e7e7;">
          <children>
             <AnchorPane layoutX="14.0" layoutY="10.0" prefHeight="464.0" prefWidth="522.0" style="-fx-background-color: #ffffff;">
@@ -47,13 +51,8 @@
                         <Font size="36.0" />
                      </font>
                   </Label>
-                  <TableView layoutX="22.0" layoutY="70.0" prefHeight="319.0" prefWidth="476.0">
-                    <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
-                    </columns>
-                  </TableView>
                   <JFXButton layoutX="216.0" layoutY="414.0" style="-fx-background-color: #00baff;" text="Book Ticket" textFill="WHITE" />
+                  <TableView fx:id="tbl_Trips" layoutX="14.0" layoutY="58.0" prefHeight="340.0" prefWidth="495.0" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="536.0" layoutY="10.0" prefHeight="464.0" prefWidth="224.0" style="-fx-background-color: #f8f8f8;">
@@ -70,11 +69,6 @@
                </children>
             </AnchorPane>
          </children></AnchorPane>
-      <AnchorPane fx:id="pn_AccountSettings" layoutX="208.0" layoutY="74.0" prefHeight="486.0" prefWidth="774.0" style="-fx-background-color: #e7e7e7;">
-         <children>
-            <AnchorPane layoutX="12.0" layoutY="13.0" prefHeight="464.0" prefWidth="749.0" style="-fx-background-color: #ffffff;" />
-         </children>
-      </AnchorPane>
       <AnchorPane fx:id="pn_Dashboard" layoutX="208.0" layoutY="75.0" prefHeight="486.0" prefWidth="774.0" style="-fx-background-color: #e7e7e7;">
          <children>
             <AnchorPane layoutX="19.0" layoutY="16.0" prefHeight="454.0" prefWidth="428.0" style="-fx-background-color: #ffffff;">
@@ -89,13 +83,8 @@
                         <Font size="21.0" />
                      </font>
                   </Label>
-                  <TableView layoutX="25.0" layoutY="103.0" prefHeight="274.0" prefWidth="384.0">
-                    <columns>
-                      <TableColumn prefWidth="66.56843566894531" text="Source" />
-                      <TableColumn prefWidth="81.99655151367188" text="Destination" />
-                    </columns>
-                  </TableView>
-                  <JFXButton layoutX="80.0" layoutY="397.0" style="-fx-background-color: #00baff;" text="Cancel Selected Trip" textFill="WHITE" />
+                  <TableView fx:id="tblBookedTrips" layoutX="25.0" layoutY="103.0" prefHeight="274.0" prefWidth="384.0" />
+                  <JFXButton fx:id="btn_CancelTrip" layoutX="80.0" layoutY="397.0" onAction="#buttonOnAction" style="-fx-background-color: #00baff;" text="Cancel Selected Trip" textFill="WHITE" />
                   <JFXButton layoutX="256.0" layoutY="397.0" style="-fx-background-color: #00baff;" text="Print Ticket" textFill="WHITE" />
                </children>
             </AnchorPane>
@@ -106,12 +95,7 @@
                         <Font size="21.0" />
                      </font>
                   </Label>
-                  <TableView layoutX="20.0" layoutY="44.0" prefHeight="191.0" prefWidth="262.0">
-                    <columns>
-                      <TableColumn prefWidth="75.0" text="Source" />
-                      <TableColumn prefWidth="83.568359375" text="Destination" />
-                    </columns>
-                  </TableView>
+                  <TableView fx:id="tbl_PrevTrips" layoutX="20.0" layoutY="44.0" prefHeight="191.0" prefWidth="262.0" />
                   <JFXButton layoutX="82.0" layoutY="249.0" style="-fx-background-color: #00baff;" text="Delete Selected Entry" textFill="WHITE" />
                </children>
             </AnchorPane>

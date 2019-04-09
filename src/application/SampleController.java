@@ -44,6 +44,7 @@ public class SampleController {
     		//pass customer to customer form from Main
     		customerMainFormController.setCustomer(Main.getInstance().getCustomer());
     		customerMainFormController.initializeData();
+    		customerMainFormController.setTable();
     		Scene customerMainFormScene = new Scene(root);
     		Stage window = (Stage)(((Node) event.getSource()).getScene().getWindow());
     		window.setScene(customerMainFormScene);

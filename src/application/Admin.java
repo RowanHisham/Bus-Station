@@ -12,11 +12,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-enum StopType{
-            NOSTOPS,
-            ONESTOP,
-            MANYSTOPS,
-        }
+
 public class Admin implements AdminActions {
 	
 	@Override
@@ -39,11 +35,12 @@ public class Admin implements AdminActions {
             int bookedSeats;
             Date tripDate;
             boolean isInternal;
-            StopType temp;
+            StopType temp = null;
             double price;
             int stop;
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
-            File inputFile = new File("C:\\Users\\Safynaz\\Desktop\\trips.xml");
+//            File inputFile = new File("C:\\Users\\Safynaz\\Desktop\\trips.xml");
+            File inputFile = new File("/Users/rowanhisham/Downloads/trips.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -73,6 +70,7 @@ public class Admin implements AdminActions {
                     trips.add(trip1);
              }
             }
+            return trips;
       } catch (Exception e) {
          e.printStackTrace();
       }
@@ -86,7 +84,7 @@ public class Admin implements AdminActions {
 	}
 
 	@Override
-	public Person AuthenticateLogInCustomer(String tempUser , String tempPass) {
+	public Customer AuthenticateLogInCustomer(String tempUser , String tempPass) {
 		// TODO Auto-generated method stub
          Customer customer1;
          
@@ -96,7 +94,8 @@ public class Admin implements AdminActions {
            String FirstName;
            String LastName;
            String TripId;
-           File inputFile = new File("C:\\Users\\Safynaz\\Documents\\NetBeansProjects\\xml\\src\\xml\\test.xml");
+           //File inputFile = new File("C:\\Users\\Safynaz\\Documents\\NetBeansProjects\\xml\\src\\xml\\test.xml");
+           File inputFile = new File("/Users/rowanhisham/Downloads/test.xml");
            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
            Document doc = dBuilder.parse(inputFile);

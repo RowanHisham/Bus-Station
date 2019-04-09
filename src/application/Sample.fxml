@@ -68,21 +68,9 @@
             <JFXTextField focusColor="#00baff" layoutX="112.0" layoutY="274.0" promptText="username" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="pn_signin" layoutX="611.0" layoutY="-2.0" prefHeight="561.0" prefWidth="368.0" style="-fx-background-color: #ffffff;">
-         <children>
-            <JFXTextField focusColor="#00baff" layoutX="99.0" layoutY="237.0" prefHeight="20.0" prefWidth="195.0" promptText="username" />
-            <JFXTextField focusColor="#00baff" layoutX="99.0" layoutY="303.0" prefHeight="26.0" prefWidth="199.0" promptText="password" />
-            <JFXButton fx:id="btn_signinCustomer" layoutX="160.0" layoutY="410.0" onAction="#buttonOnAction" ripplerFill="WHITE" style="-fx-background-color: #00baff;" text="Sign In" textFill="WHITE" />
-            <Label layoutX="36.0" layoutY="145.0" prefHeight="25.0" prefWidth="165.0" text="Welcome !" textFill="#00baff">
-               <font>
-                  <Font size="29.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
       <AnchorPane fx:id="pn_employeeLogIn" layoutX="609.0" layoutY="-3.0" prefHeight="562.0" prefWidth="371.0" style="-fx-background-color: #ffffff;">
          <children>
-            <JFXTextField focusColor="#00baff" layoutX="105.0" layoutY="281.0" prefHeight="33.0" prefWidth="189.0" promptText="password" />
+            <JFXTextField fx:id="txt_PasswordEmp" focusColor="#00baff" layoutX="105.0" layoutY="281.0" prefHeight="33.0" prefWidth="189.0" promptText="password" />
             <JFXButton fx:id="btn_SignInEmp" layoutX="144.0" layoutY="402.0" onAction="#buttonOnAction" prefHeight="33.0" prefWidth="85.0" ripplerFill="WHITE" style="-fx-background-color: #00baff;" text="Sign In" textFill="WHITE">
                <font>
                   <Font size="15.0" />
@@ -93,7 +81,29 @@
                   <Font size="19.0" />
                </font>
             </Label>
-            <JFXTextField focusColor="#00baff" layoutX="104.0" layoutY="221.0" prefHeight="33.0" prefWidth="191.0" promptText="credentials" />
+            <JFXTextField fx:id="txt_UserNameEmp" focusColor="#00baff" layoutX="104.0" layoutY="221.0" prefHeight="33.0" prefWidth="191.0" promptText="credentials" text="username" />
+            <Label fx:id="lbl_WarningEmp" layoutX="106.0" layoutY="318.0" prefHeight="17.0" prefWidth="191.0" text="Wrong username or password" textFill="RED" visible="false">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="pn_signin" layoutX="611.0" layoutY="-2.0" prefHeight="561.0" prefWidth="368.0" style="-fx-background-color: #ffffff;">
+         <children>
+            <JFXTextField fx:id="txt_UserNameCustomer" focusColor="#00baff" layoutX="99.0" layoutY="237.0" prefHeight="20.0" prefWidth="195.0" promptText="username" />
+            <JFXTextField fx:id="txt_PasswordCustomer" focusColor="#00baff" layoutX="99.0" layoutY="303.0" prefHeight="26.0" prefWidth="199.0" promptText="password" />
+            <JFXButton fx:id="btn_signinCustomer" layoutX="160.0" layoutY="410.0" onAction="#buttonOnAction" ripplerFill="WHITE" style="-fx-background-color: #00baff;" text="Sign In" textFill="WHITE" />
+            <Label layoutX="36.0" layoutY="145.0" prefHeight="25.0" prefWidth="165.0" text="Welcome !" textFill="#00baff">
+               <font>
+                  <Font size="29.0" />
+               </font>
+            </Label>
+            <Label fx:id="lbl_WarningCustomer" layoutX="101.0" layoutY="336.0" prefHeight="17.0" prefWidth="191.0" text="Wrong username or password" textFill="RED" visible="false">
+               <font>
+                  <Font size="10.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>
