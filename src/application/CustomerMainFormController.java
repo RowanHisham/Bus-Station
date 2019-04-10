@@ -10,6 +10,7 @@ import java.util.Arrays;
 import javax.security.auth.callback.Callback;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXCheckBox;
 import com.jfoenix.controls.JFXTextField;
 
 import javafx.beans.property.SimpleStringProperty;
@@ -48,10 +49,10 @@ public class CustomerMainFormController {
 	private AnchorPane pn_Trips, pn_Dashboard, pn_title, pn_AccountSettings, pn_booking;
 	
 	@FXML
-	private Label lblUserName;
+	private Label lblUserName, lbl_price;
 	
 	@FXML
-	private JFXTextField txt_Source,txt_Destination,txt_NumOfSeats;
+	private JFXTextField txt_Source,txt_Destination,txt_NumOfSeats,txt_NumOfSeats2;
 	
 	@FXML
 	TableView<Trip> tblBookedTrips = new TableView<Trip>();
@@ -62,6 +63,8 @@ public class CustomerMainFormController {
 	@FXML
 	TableView<Trip> tbl_Trips = new TableView<Trip>();
 	
+	@FXML
+	private JFXCheckBox btn_isRoundTrip;
 
     @FXML
     void buttonOnAction(ActionEvent event) throws IOException {
@@ -77,8 +80,9 @@ public class CustomerMainFormController {
     	}else if(event.getSource() == btn_ApplyFilter) {
     		String source = txt_Source.getText();
     		String destination = txt_Destination.getText();
-    		String num = txt_NumOfSeats.getText();
+    		String num = txt_NumOfSeats2.getText();
 
+    		System.out.println("heree" + num);
     		if(num.equals("")) num = "-1";
     		int numOfSeats = Integer.parseInt(num);
 
@@ -100,22 +104,18 @@ public class CustomerMainFormController {
     		pn_booking.setVisible(false);
     	}else if ( event.getSource() == btn_Confirm) {
     		Trip trip = tbl_Trips.getSelectionModel().getSelectedItem();
-    		System.out.println(trip.getSource());
-    		int numOfAvailableSeats = trip.getVehicleObj().getNumberOfSeats() - trip.getBookedSeats();
-    		if(numOfAvailableSeats >= Integer.parseInt(txt_NumOfSeats.getText())) {
-    			System.out.println("here");
-    			//String[] newTripIds = customer.getTripIDs();
-
-    			final int N = customer.getTripIDs().length;
-    			String[] newTripIds = Arrays.copyOf(customer.getTripIDs(), N + 1);
-    			newTripIds[N] = Integer.toString(trip.getID());
-    			customer.setTripIDs(newTripIds);
-    			//customer.getTripsList().get(customer.getTripsList().lastIndexOf(trip)).setBookedSeats(trip.getBookedSeats()+1);
+    		if(customer.checkAvailability(trip, null, Integer.parseInt(txt_NumOfSeats.getText()))){
+       			System.out.println(!btn_isRoundTrip.isSelected());
+    			Ticket ticket = customer.reserve(trip, null, customer, Integer.parseInt(txt_NumOfSeats.getText()), !btn_isRoundTrip.isSelected());
+    			
+    			Alert alert = new Alert(AlertType.CONFIRMATION, "price of booked trip(s) = ".concat(Double.toString(ticket.getPriceOfTrip())), ButtonType.CLOSE);
+        		alert.showAndWait();
+        		
     			pn_booking.setVisible(false);
     			txt_NumOfSeats.setText("");
     			this.setTable(customer.getTripsList());
     		}
-
+    			
     	}else if( event.getSource() == btn_Dashboard) { 
     		pn_Dashboard.toFront();
     		pn_title.toFront();

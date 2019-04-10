@@ -2,6 +2,7 @@ package application;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 import javafx.fxml.FXMLLoader;
@@ -59,6 +60,7 @@ public class Customer extends Person implements CustomerActions {
 			return tripsList;}
 		
 		for(Trip trip: tripsList) {
+			System.out.println("num of seats " + numOfSeats);
 			int numOfavailableSeats = trip.getVehicleObj().getNumberOfSeats() - trip.getBookedSeats();
 			System.out.println(numOfavailableSeats);
 			if(trip.getSource().toLowerCase().contains(source.toLowerCase()) && 
@@ -74,13 +76,18 @@ public class Customer extends Person implements CustomerActions {
 	@Override
 	public boolean checkAvailability(Trip selected1, Trip selected2, Integer numOfSeats) {
 		// TODO Auto-generated method stub
-		return false;
+		int numOfAvailableSeats = selected1.getVehicleObj().getNumberOfSeats() - selected1.getBookedSeats();
+		return  numOfAvailableSeats >= numOfSeats;
 	}
 
 	@Override
-	public Ticket reserve(Trip selected, Trip selected2, Person customer, Integer numOfSeats) {
+	public Ticket reserve(Trip selected, Trip selected2, Customer customer, Integer numOfSeats, boolean isOneWay) {
 		// TODO Auto-generated method stub
-		return null;
+		final int N = customer.getTripIDs().length;
+		String[] newTripIds = Arrays.copyOf(customer.getTripIDs(), N + 1);
+		newTripIds[N] = Integer.toString(selected.getID());
+		customer.setTripIDs(newTripIds);
+		Ticket ticket = new Ticket(selected.getPrice(),numOfSeats,isOneWay);
+		return ticket;
 	}
-
 }

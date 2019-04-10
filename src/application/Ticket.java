@@ -4,22 +4,23 @@ public class Ticket {
 
 	private double priceOfTrip;
 	private double amountToPay;
-	private String numOfSeats;
+	private Integer numOfSeats;
 	private int tripID;
 	private boolean isOneWay;
 	
-	Ticket(double priceOfTrip, String numOfSeats,int tripID, boolean isOneWay){
+	Ticket(double priceOfTrip, Integer numOfSeats, boolean isOneWay){
+		this.priceOfTrip = priceOfTrip;
 		this.numOfSeats = numOfSeats;
-		this.tripID = tripID;
 		this.isOneWay = isOneWay;
 		this.amountToPay = isOneWay? priceOfTrip: priceOfTrip - priceOfTrip*0.01;
+
 	}
 
 	public double getAmountToPay() {
 		return amountToPay;
 	}
 
-	public String getNumOfSeats() {
+	public Integer getNumOfSeats() {
 		return numOfSeats;
 	}
 
@@ -32,6 +33,11 @@ public class Ticket {
 	}
 
 	public double getPriceOfTrip() {
-		return priceOfTrip;
+		System.out.println(isOneWay);
+		if(this.isOneWay) {
+			return (double)this.priceOfTrip*this.numOfSeats;
+		}else {
+			return this.priceOfTrip*this.numOfSeats - (this.priceOfTrip*this.numOfSeats)*0.2;
+		}
 	}
 }

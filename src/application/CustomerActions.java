@@ -7,5 +7,5 @@ public interface CustomerActions {
 	
 	public boolean checkAvailability(Trip selected1, Trip selected2, Integer numOfSeats);
 	
-	public Ticket reserve(Trip selected,Trip selected2,Person customer, Integer numOfSeats);
+	public Ticket reserve(Trip selected,Trip selected2,Customer customer, Integer numOfSeats, boolean isOneWay);
 }
