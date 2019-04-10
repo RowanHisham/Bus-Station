@@ -195,7 +195,7 @@ public class CustomerMainFormController {
     
     public void initializeData() {
     	lblUserName.setText(customer.getFirstName() + " " + customer.getLastName());
-    	customer.setTripsList(admin.listTrips());
+    	customer.setTripsList(admin.listTrips(admin.listVechiles()));
     }
     
     public void setTripsTable(ArrayList<Trip> tripList) {

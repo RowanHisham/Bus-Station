@@ -15,7 +15,7 @@ public class Manager extends Person {
 		this.setLastName(lastName);
 		this.setPassword(password);
 		setDriversList(driversList);
-		setDriversList(driversList);
+		setTripsList(tripsList);
 		setVehiclesList(vehiclesList);
 	}
 
