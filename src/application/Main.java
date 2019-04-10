@@ -13,7 +13,7 @@ import javafx.fxml.FXMLLoader;
 
 public class Main extends Application {
 	
-	private Person customer;
+	private Customer customer;
 	
 	private static Main instance;
 	
@@ -39,11 +39,11 @@ public class Main extends Application {
 		}
 	}
 	
-	public Person getCustomer() {
+	public Customer getCustomer() {
 		return customer;
 	}
 
-	public void setCustomer(Person customer) throws IOException {
+	public void setCustomer(Customer customer) throws IOException {
 		this.customer = customer;
 	}
 

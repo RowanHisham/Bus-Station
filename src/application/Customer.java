@@ -8,9 +8,10 @@ import javafx.fxml.FXMLLoader;
 
 public class Customer extends Person implements CustomerActions {
 
-	private ArrayList<Integer> tripIDs = new ArrayList<Integer>(5);
+	private String[] tripIDs;
 	private ArrayList<Trip> tripsList = new ArrayList<Trip>();
 	private Admin admin = new Admin();
+	private ArrayList<Trip> filteredTripList = new ArrayList<Trip>();
 
 
 	Customer(String firstName, String lastName, String userName, String password, String[] tripIDs) throws IOException{
@@ -22,7 +23,7 @@ public class Customer extends Person implements CustomerActions {
 	}
 	
 	
-	public ArrayList<Integer> getTripIDs() {
+	public String[] getTripIDs() {
 		return tripIDs;
 	}
 
@@ -49,9 +50,25 @@ public class Customer extends Person implements CustomerActions {
 
 
 	@Override
-	public ArrayList<Trip> listTrip(Map<String, Object> filter) {
+	public ArrayList<Trip> listTrip(String source,String destination,int numOfSeats){
 		// TODO Auto-generated method stub
-		return null;
+		filteredTripList.clear();
+		
+		if(source == "" && destination == "" && numOfSeats == -1) { 
+			System.out.println("here");
+			return tripsList;}
+		
+		for(Trip trip: tripsList) {
+			int numOfavailableSeats = trip.getVehicleObj().getNumberOfSeats() - trip.getBookedSeats();
+			System.out.println(numOfavailableSeats);
+			if(trip.getSource().toLowerCase().contains(source.toLowerCase()) && 
+					trip.getDestination().toLowerCase().contains(destination.toLowerCase()) && 
+					numOfavailableSeats>numOfSeats){
+				filteredTripList.add(trip);
+			}
+		}
+		//tripsList.stream().map(Trip::getSource).filter(source::equals).findFirst().isPresent();
+		return filteredTripList;
 	}
 
 	@Override

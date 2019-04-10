@@ -3,7 +3,7 @@ import java.util.*;
 
 public interface CustomerActions {
 	
-	public ArrayList<Trip> listTrip(Map<String, Object> filter);
+	public ArrayList<Trip> listTrip(String source,String destination,int numOfSeats);
 	
 	public boolean checkAvailability(Trip selected1, Trip selected2, Integer numOfSeats);
 	

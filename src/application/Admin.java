@@ -26,7 +26,7 @@ public class Admin implements AdminActions {
 		// TODO Auto-generated method stub
         
         Trip trip1;
-        Car newCar = new Car("5003","Lab","1992","Yellow");
+        Vehicle newCar = new Bus("5003","Lab","1992","Yellow");
         ArrayList<Trip> trips = new ArrayList<Trip>();
         try {
             int ID;

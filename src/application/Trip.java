@@ -78,6 +78,10 @@ public class Trip {
 	public String getVehicle() {
 		return vehicle.getModel();
 	}
+	
+	public Vehicle getVehicleObj() {
+		return vehicle;
+	}
 
 	public void setVehicle(Vehicle vehicle) {
 		this.vehicle = vehicle;

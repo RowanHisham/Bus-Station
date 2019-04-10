@@ -10,6 +10,7 @@ import java.util.Arrays;
 import javax.security.auth.callback.Callback;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
@@ -31,6 +32,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.scene.*;
 
 
@@ -39,13 +41,17 @@ public class CustomerMainFormController {
 	private Admin admin = new Admin();
 
 	@FXML
-    private JFXButton btn_logOutCustomer, btn_Trips, btn_Dashboard, btn_AccountSettings, btn_Close, btn_CancelTrip;
+    private JFXButton btn_logOutCustomer, btn_Trips, btn_Dashboard, btn_AccountSettings, btn_Close, btn_CancelTrip, btn_Delete, 
+    btn_ApplyFilter, btn_bookTicket, btn_Cancel,btn_Confirm, btn_NumOfSeats;
 	
 	@FXML
-	private AnchorPane pn_Trips, pn_Dashboard, pn_title, pn_AccountSettings;
+	private AnchorPane pn_Trips, pn_Dashboard, pn_title, pn_AccountSettings, pn_booking;
 	
 	@FXML
 	private Label lblUserName;
+	
+	@FXML
+	private JFXTextField txt_Source,txt_Destination,txt_NumOfSeats;
 	
 	@FXML
 	TableView<Trip> tblBookedTrips = new TableView<Trip>();
@@ -64,12 +70,54 @@ public class CustomerMainFormController {
     		Scene customerMainFormScene = new Scene(root);
     		Stage window = (Stage)(((Node) event.getSource()).getScene().getWindow());
     		window.setScene(customerMainFormScene);
-     		window.show();
+    		window.show();
     	}else if( event.getSource() == btn_Trips) {
     		pn_Trips.toFront();
     		pn_title.toFront();
+    	}else if(event.getSource() == btn_ApplyFilter) {
+    		String source = txt_Source.getText();
+    		String destination = txt_Destination.getText();
+    		String num = txt_NumOfSeats.getText();
+
+    		if(num.equals("")) num = "-1";
+    		int numOfSeats = Integer.parseInt(num);
+
+    		this.setTripsTable(customer.listTrip(source,destination, numOfSeats));
+    	}else if( event.getSource() == btn_bookTicket) {
+//    		System.out.println("here");
+//    		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Booking.fxml"));
+//            Parent parent = fxmlLoader.load();
+//       
+//            Scene scene = new Scene(parent, 512, 254);
+//            Stage stage = new Stage();
+//            stage.initStyle(StageStyle.TRANSPARENT);
+//            stage.initModality(Modality.APPLICATION_MODAL);
+//            stage.setScene(scene);
+//            stage.showAndWait();
+    		pn_booking.setVisible(true);
+    		pn_booking.toFront();
+    	}else if ( event.getSource() == btn_Cancel) {
+    		pn_booking.setVisible(false);
+    	}else if ( event.getSource() == btn_Confirm) {
+    		Trip trip = tbl_Trips.getSelectionModel().getSelectedItem();
+    		System.out.println(trip.getSource());
+    		int numOfAvailableSeats = trip.getVehicleObj().getNumberOfSeats() - trip.getBookedSeats();
+    		if(numOfAvailableSeats >= Integer.parseInt(txt_NumOfSeats.getText())) {
+    			System.out.println("here");
+    			//String[] newTripIds = customer.getTripIDs();
+
+    			final int N = customer.getTripIDs().length;
+    			String[] newTripIds = Arrays.copyOf(customer.getTripIDs(), N + 1);
+    			newTripIds[N] = Integer.toString(trip.getID());
+    			customer.setTripIDs(newTripIds);
+    			//customer.getTripsList().get(customer.getTripsList().lastIndexOf(trip)).setBookedSeats(trip.getBookedSeats()+1);
+    			pn_booking.setVisible(false);
+    			txt_NumOfSeats.setText("");
+    			this.setTable(customer.getTripsList());
+    		}
+
     	}else if( event.getSource() == btn_Dashboard) { 
-       		pn_Dashboard.toFront();
+    		pn_Dashboard.toFront();
     		pn_title.toFront();
     	}else if( event.getSource() == btn_AccountSettings) {
     		pn_AccountSettings.toFront();
@@ -108,6 +156,30 @@ public class CustomerMainFormController {
     				}
     			}
     		}
+    	}else if(event.getSource() == btn_Delete) {
+    		Trip trip = tbl_PrevTrips.getSelectionModel().getSelectedItem();
+    		//search for selected trip and delete its ID
+    		if(trip != null) {
+    			int ID = trip.getID();
+    			for(int i=0; i< customer.getTripIDs().length; i++) {
+    				if(ID == Integer.parseInt(customer.getTripIDs()[i])){
+    					List<String> list = new ArrayList<String>(Arrays.asList(customer.getTripIDs()));
+    					list.remove(customer.getTripIDs()[i]);
+    					customer.setTripIDs(list.toArray(new String[0]));
+    					//increment number of seats
+    					int c=0;
+    					for(Trip x : customer.getTripsList()) {
+    						if( x.getID() == ID) {
+    							customer.getTripsList().get(c).setBookedSeats( customer.getTripsList().get(c).getBookedSeats() + 1);
+    							System.out.println(customer.getTripsList().get(c).getBookedSeats());
+    						}
+    					}
+
+    					this.setTable(customer.getTripsList());
+    					return;
+    				}
+    			}
+    		}
     	}
     }
     
@@ -128,6 +200,10 @@ public class CustomerMainFormController {
     
     public void setTripsTable(ArrayList<Trip> tripList) {
 //    	customer.setTripsList(admin.listTrips());
+    	
+    	tbl_Trips.getItems().clear();
+    	tbl_Trips.getColumns().clear();
+    	tbl_Trips.refresh();
     	
     	TableColumn<Trip, String> source3;
     	TableColumn<Trip, String> destination3;

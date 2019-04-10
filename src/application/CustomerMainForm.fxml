@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
@@ -51,7 +52,7 @@
                         <Font size="36.0" />
                      </font>
                   </Label>
-                  <JFXButton layoutX="216.0" layoutY="414.0" style="-fx-background-color: #00baff;" text="Book Ticket" textFill="WHITE" />
+                  <JFXButton fx:id="btn_bookTicket" layoutX="216.0" layoutY="414.0" onAction="#buttonOnAction" style="-fx-background-color: #00baff;" text="Book Ticket" textFill="WHITE" />
                   <TableView fx:id="tbl_Trips" layoutX="14.0" layoutY="58.0" prefHeight="340.0" prefWidth="495.0" />
                </children>
             </AnchorPane>
@@ -62,10 +63,28 @@
                         <Font size="23.0" />
                      </font>
                   </Label>
-                  <JFXTextField layoutX="28.0" layoutY="121.0" prefHeight="27.0" prefWidth="169.0" promptText="Source" />
-                  <JFXTextField layoutX="29.0" layoutY="172.0" prefHeight="27.0" prefWidth="169.0" promptText="Destination" />
-                  <JFXTextField layoutX="27.0" layoutY="225.0" prefHeight="27.0" prefWidth="169.0" promptText="Number of avaliable seats" />
-                  <JFXButton layoutX="65.0" layoutY="399.0" style="-fx-background-color: #00baff;" text="Apply Filters" textFill="WHITE" />
+                  <JFXTextField fx:id="txt_Source" layoutX="28.0" layoutY="121.0" prefHeight="27.0" prefWidth="169.0" promptText="Source" />
+                  <JFXTextField fx:id="txt_Destination" layoutX="29.0" layoutY="172.0" prefHeight="27.0" prefWidth="169.0" promptText="Destination" />
+                  <JFXTextField fx:id="txt_NumOfSeats" layoutX="27.0" layoutY="225.0" prefHeight="27.0" prefWidth="169.0" promptText="Number of avaliable seats" />
+                  <JFXButton fx:id="btn_ApplyFilter" layoutX="65.0" layoutY="399.0" onAction="#buttonOnAction" style="-fx-background-color: #00baff;" text="Apply Filters" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="pn_booking" layoutX="20.0" layoutY="111.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="184.0" prefWidth="512.0" style="-fx-background-color: #ffffff;" visible="false">
+               <children>
+                  <AnchorPane layoutX="-4.0" layoutY="-3.0" prefHeight="191.0" prefWidth="517.0" style="-fx-background-color: #00baff;">
+                     <children>
+                        <Label layoutX="55.0" layoutY="72.0" text="Number Of Seats:" textFill="WHITE" />
+                        <Label layoutX="9.0" layoutY="18.0" prefHeight="48.0" prefWidth="487.0" text="Please provide the following information to complete your reservation:" textFill="WHITE">
+                           <font>
+                              <Font name="Helvetica Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <JFXTextField fx:id="txt_NumOfSeats" focusColor="WHITE" layoutX="168.0" layoutY="66.0" prefHeight="27.0" prefWidth="64.0" />
+                        <JFXCheckBox layoutX="290.0" layoutY="71.0" text="Round-Trip" textFill="WHITE" />
+                        <JFXButton fx:id="btn_Confirm" layoutX="355.0" layoutY="127.0" onAction="#buttonOnAction" style="-fx-background-color: #ffffff;" text="Confirm" />
+                        <JFXButton fx:id="btn_Cancel" layoutX="435.0" layoutY="127.0" onAction="#buttonOnAction" style="-fx-background-color: #ffffff;" text="Cancel" />
+                     </children>
+                  </AnchorPane>
                </children>
             </AnchorPane>
          </children></AnchorPane>
@@ -96,7 +115,7 @@
                      </font>
                   </Label>
                   <TableView fx:id="tbl_PrevTrips" layoutX="20.0" layoutY="44.0" prefHeight="191.0" prefWidth="262.0" />
-                  <JFXButton layoutX="82.0" layoutY="249.0" style="-fx-background-color: #00baff;" text="Delete Selected Entry" textFill="WHITE" />
+                  <JFXButton fx:id="btn_Delete" layoutX="82.0" layoutY="249.0" onAction="#buttonOnAction" style="-fx-background-color: #00baff;" text="Delete Selected Entry" textFill="WHITE" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="461.0" layoutY="316.0" prefHeight="153.0" prefWidth="298.0" style="-fx-background-color: #ffffff;">
