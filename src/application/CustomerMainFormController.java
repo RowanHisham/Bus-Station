@@ -111,10 +111,15 @@ public class CustomerMainFormController {
     			Alert alert = new Alert(AlertType.CONFIRMATION, "price of booked trip(s) = ".concat(Double.toString(ticket.getPriceOfTrip())), ButtonType.CLOSE);
         		alert.showAndWait();
         		
-    			pn_booking.setVisible(false);
-    			txt_NumOfSeats.setText("");
+ 
     			this.setTable(customer.getTripsList());
+    		}else {
+
+    			Alert alert = new Alert(AlertType.WARNING, "Sorry there are not enough seats on that trip!", ButtonType.CLOSE);
+        		alert.showAndWait();
     		}
+    		pn_booking.setVisible(false);
+			txt_NumOfSeats.setText("");
     			
     	}else if( event.getSource() == btn_Dashboard) { 
     		pn_Dashboard.toFront();
