@@ -7,6 +7,11 @@ import java.util.Arrays;
 import java.util.Date;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -63,7 +68,7 @@ public class Admin implements AdminActions {
                  
             }
          }
-         
+         saveVehicles(vehicles);
          return vehicles;
       } catch (Exception e) {
          e.printStackTrace();
@@ -156,7 +161,6 @@ public class Admin implements AdminActions {
     public ArrayList<Person> listDrivers() {
 		// TODO Auto-generated method stub
         ArrayList<Person> persons = new ArrayList<Person>();
-        Driver Driver1; 
         try {
            String Password;
            String FirstName;
@@ -190,6 +194,7 @@ public class Admin implements AdminActions {
                   }
               }
            }
+           
            return persons;
         } catch (Exception e) {
            e.printStackTrace();
@@ -251,7 +256,7 @@ public class Admin implements AdminActions {
            String LastName;
            String TripId;
            String Type;
-           File inputFile = new File("C:\\Users\\Safynaz\\Documents\\NetBeansProjects\\xml\\src\\xml\\Driver.xml");
+           File inputFile = new File("C:\\Users\\Safynaz\\Desktop\\Driver.xml");
            //File inputFile = new File("/Users/rowanhisham/Downloads/test.xml");
            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -274,11 +279,14 @@ public class Admin implements AdminActions {
                    if(Type.compareTo("Driver")==0){
                     TripId = eElement.getElementsByTagName("tripid").item(0).getTextContent();
                     String IDs[] = TripId.split(",");
-                    Driver driver = new Driver(FirstName , LastName , Password , IDs);                        
+                    Driver driver = new Driver(FirstName , LastName , Password , IDs);
+                       System.out.println(driver.getFirstName());
+                       System.out.println(driver.getLastName());
+                       System.out.println(driver.getPassword());
                     return driver;
                    }
                    else if(Type.compareTo("Manager")==0){
-                       
+                       System.out.println("Manager");
                        //Manager manager = new Manager(FirstName, LastName , Password);
                        //return manager;
                    }
@@ -295,6 +303,69 @@ public class Admin implements AdminActions {
 	@Override
 	public void saveVehicles(ArrayList<Vehicle> list) {
 		// TODO Auto-generated method stub
+        try {
+           DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+           DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+           Document doc = dBuilder.newDocument();
+                       // write the content into xml file
+           TransformerFactory transformerFactory = TransformerFactory.newInstance();
+           Transformer transformer = transformerFactory.newTransformer();
+           DOMSource source = new DOMSource(doc);
+           StreamResult result = new StreamResult(new File("C:\\Users\\Safynaz\\Desktop\\cars.xml"));
+
+           Element rootElement = doc.createElement("Vehicle");
+           doc.appendChild(rootElement);
+           for(Vehicle newV : list){
+            Element automobile = doc.createElement("automobile");
+            rootElement.appendChild(automobile);
+
+            // carname element
+            Element ID = doc.createElement("ID");
+            ID.appendChild(doc.createTextNode(newV.getID()));
+            automobile.appendChild(ID);
+
+            Element model = doc.createElement("model");
+            model.appendChild(doc.createTextNode(newV.getModel()));
+            automobile.appendChild(model);
+
+            Element year = doc.createElement("year");
+            year.appendChild(doc.createTextNode(newV.getYear()));
+            automobile.appendChild(year);
+
+            Element color = doc.createElement("color");
+            color.appendChild(doc.createTextNode(newV.getColor()));
+            automobile.appendChild(color);
+
+            Element numseat = doc.createElement("numseat");
+            numseat.appendChild(doc.createTextNode(String.valueOf(newV.getNumberOfSeats())));
+            automobile.appendChild(numseat);
+            
+            if(newV.getNumberOfSeats() == 3){
+                Attr attr = doc.createAttribute("type");
+                attr.setValue("Limo");
+                automobile.setAttributeNode(attr);
+            
+            }
+            else if(newV.getNumberOfSeats() == 4){
+                Attr attr = doc.createAttribute("type");
+                attr.setValue("Car");
+                automobile.setAttributeNode(attr);
+            
+            }
+            else if(newV.getNumberOfSeats() == 30){
+                Attr attr = doc.createAttribute("type");
+                attr.setValue("Bus");
+                automobile.setAttributeNode(attr);
+            
+            }
+
+
+
+           transformer.transform(source, result);
+           }  
+        } catch (Exception e) {
+           e.printStackTrace();
+      }
 		
 	}
 

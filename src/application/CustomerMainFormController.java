@@ -181,6 +181,7 @@ public class CustomerMainFormController {
     					}
 
     					this.setTable(customer.getTripsList());
+                                       
     					return;
     				}
     			}
