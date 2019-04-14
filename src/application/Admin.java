@@ -33,7 +33,7 @@ public class Admin implements AdminActions {
          String Type;
 	 //int numseats;
         
-         File inputFile = new File("C:\\Users\\Safynaz\\Desktop\\Vechile.xml");
+         File inputFile = new File("C:\\Users\\Safynaz\\Desktop\\cars.xml");
          DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
          DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
          Document doc = dBuilder.parse(inputFile);
@@ -69,6 +69,7 @@ public class Admin implements AdminActions {
             }
          }
          saveVehicles(vehicles);
+         
          return vehicles;
       } catch (Exception e) {
          e.printStackTrace();
@@ -204,9 +205,8 @@ public class Admin implements AdminActions {
 
 	@Override
     public Customer AuthenticateLogInCustomer(String tempUser , String tempPass) {
-		// TODO Auto-generated method stub
+         // TODO Auto-generated method stub
          Customer customer1;
-         
         try {
            String UserName ;
            String Password;
@@ -246,9 +246,8 @@ public class Admin implements AdminActions {
       
 		return null;
 	}
-
-	@Override
-    public Person AuthenticateLogInEmployee(String tempUser, String tempPass) {
+        @Override
+    public Driver AuthenticateLogInDriver(String tempUser, String tempPass) {
 		// TODO Auto-generated method stub
         try {
            String Password;
@@ -285,10 +284,54 @@ public class Admin implements AdminActions {
                        System.out.println(driver.getPassword());
                     return driver;
                    }
-                   else if(Type.compareTo("Manager")==0){
+              }
+             
+           }
+          }
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+		return null;
+	}
+        @Override
+    public Manager AuthenticateLogInManger(String tempUser, String tempPass) {
+		// TODO Auto-generated method stub
+        try {
+           String Password;
+           String FirstName;
+           String LastName;
+           String Type;
+           File inputFile = new File("C:\\Users\\Safynaz\\Desktop\\Driver.xml");
+           //File inputFile = new File("/Users/rowanhisham/Downloads/test.xml");
+           DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+           DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+           Document doc = dBuilder.parse(inputFile);
+           doc.getDocumentElement().normalize();
+           System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+           NodeList nList = doc.getElementsByTagName("employee");
+           System.out.println("----------------------------");
+           
+           for (int temp = 0; temp < nList.getLength(); temp++) {
+              Node nNode = nList.item(temp);
+              if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                   Element eElement = (Element) nNode;
+                   FirstName =  eElement.getElementsByTagName("firstname").item(0).getTextContent();
+                   LastName = eElement.getElementsByTagName("lastname").item(0).getTextContent();
+                   Password =  eElement.getElementsByTagName("password").item(0).getTextContent();
+
+               if(FirstName.compareToIgnoreCase(tempUser) == 0 && Password.compareTo(tempPass) == 0){
+                    Type = eElement.getAttribute("type");
+ 
+                    if(Type.compareTo("Manager")==0){
                        System.out.println("Manager");
-                       //Manager manager = new Manager(FirstName, LastName , Password);
-                       //return manager;
+                       ArrayList<Vehicle> listVech = new ArrayList<Vehicle>();
+                       ArrayList<Trip> listTrip = new ArrayList<Trip>();
+                       ArrayList<Person> persons = new ArrayList<Person>();
+                       listVech = listVechiles();
+                       listTrip = listTrips(listVech);
+                       persons =  listDrivers(); 
+                       Manager manager = new Manager(FirstName, LastName , Password, listTrip, listVech, persons);
+                       return manager;
                    }
               }
              
@@ -299,9 +342,55 @@ public class Admin implements AdminActions {
         }
 		return null;
 	}
+        @Override
+    public int AuthenticateEmoployee(String tempUser, String tempPass) {
+		// TODO Auto-generated method stub
+        try {
+           String Password;
+           String FirstName;
+           String LastName;
+           String TripId;
+           String Type;
+           File inputFile = new File("C:\\Users\\Safynaz\\Desktop\\Driver.xml");
+           //File inputFile = new File("/Users/rowanhisham/Downloads/test.xml");
+           DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+           DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+           Document doc = dBuilder.parse(inputFile);
+           doc.getDocumentElement().normalize();
+           System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+           NodeList nList = doc.getElementsByTagName("employee");
+           System.out.println("----------------------------");
+           
+           for (int temp = 0; temp < nList.getLength(); temp++) {
+              Node nNode = nList.item(temp);
+              if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                  Element eElement = (Element) nNode;
+                   FirstName =  eElement.getElementsByTagName("firstname").item(0).getTextContent();
+                   LastName = eElement.getElementsByTagName("lastname").item(0).getTextContent();
+                   Password =  eElement.getElementsByTagName("password").item(0).getTextContent();
+
+               if(FirstName.compareToIgnoreCase(tempUser) == 0 && Password.compareTo(tempPass) == 0){
+                   Type = eElement.getAttribute("type");
+                   if(Type.compareTo("Driver")==0){
+                        System.out.println("Driver");
+                        return 1;
+                   }
+                   else if(Type.compareTo("Manager")==0){
+                       System.out.println("Manager");
+                       return 0;
+                   }
+              }
+             
+           }
+          }
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+		return -1;
+	}
 
 	@Override
-	public void saveVehicles(ArrayList<Vehicle> list) {
+	public void saveVehicles(ArrayList<Vehicle> listT) {
 		// TODO Auto-generated method stub
         try {
            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -311,11 +400,11 @@ public class Admin implements AdminActions {
            TransformerFactory transformerFactory = TransformerFactory.newInstance();
            Transformer transformer = transformerFactory.newTransformer();
            DOMSource source = new DOMSource(doc);
-           StreamResult result = new StreamResult(new File("C:\\Users\\Safynaz\\Desktop\\cars.xml"));
+           StreamResult result = new StreamResult(new File("C:\\Users\\Safynaz\\Desktop\\cars2.xml"));
 
            Element rootElement = doc.createElement("Vehicle");
            doc.appendChild(rootElement);
-           for(Vehicle newV : list){
+           for(Vehicle newV : listT){
             Element automobile = doc.createElement("automobile");
             rootElement.appendChild(automobile);
 
@@ -356,23 +445,17 @@ public class Admin implements AdminActions {
                 Attr attr = doc.createAttribute("type");
                 attr.setValue("Bus");
                 automobile.setAttributeNode(attr);
-            
             }
-
-
-
-           transformer.transform(source, result);
+            transformer.transform(source, result);
            }  
-        } catch (Exception e) {
+        } catch (Exception e){           
            e.printStackTrace();
-      }
-		
+            }	
 	}
-
 	@Override
 	public void saveTrips(ArrayList<Trip> list) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
