@@ -1,6 +1,7 @@
 package application;
 
 import java.io.File;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -68,7 +69,7 @@ public class Admin implements AdminActions {
                  
             }
          }
-         saveVehicles(vehicles);
+
          
          return vehicles;
       } catch (Exception e) {
@@ -78,7 +79,7 @@ public class Admin implements AdminActions {
 	}
 
 	@Override
-    public ArrayList<Trip> listTrips(ArrayList<Vehicle> listVehicle) {
+public ArrayList<Trip> listTrips(ArrayList<Vehicle> listVehicle) {
 		// TODO Auto-generated method stub
         Trip trip1;
         //Car newCar = new Car("100","BMW","1990","Black");
@@ -95,7 +96,7 @@ public class Admin implements AdminActions {
             String Vehicle;
             int stop;
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
-            File inputFile = new File("C:\\Users\\Safynaz\\Desktop\\trips.xml");
+            File inputFile = new File("C:\\Users\\Safynaz\\Desktop\\trips2.xml");
    //       File inputFile = new File("/Users/rowanhisham/Downloads/trips.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
@@ -143,14 +144,10 @@ public class Admin implements AdminActions {
                                  trips.add(trip1);
                               }
                               break;
-                           }
-}
-
-                    
- 
+                     }
+                }
              }
-            }
-    
+            }   
             return trips;
       } catch (Exception e) {
          e.printStackTrace();
@@ -159,7 +156,7 @@ public class Admin implements AdminActions {
 	}
 
 	@Override
-    public ArrayList<Person> listDrivers() {
+public ArrayList<Person> listDrivers() {
 		// TODO Auto-generated method stub
         ArrayList<Person> persons = new ArrayList<Person>();
         try {
@@ -193,9 +190,9 @@ public class Admin implements AdminActions {
                         Driver driver = new Driver(FirstName, LastName,Password,IDs);  
                         persons.add(driver);
                   }
+                  
               }
            }
-           
            return persons;
         } catch (Exception e) {
            e.printStackTrace();
@@ -204,7 +201,7 @@ public class Admin implements AdminActions {
 	}
 
 	@Override
-    public Customer AuthenticateLogInCustomer(String tempUser , String tempPass) {
+public Customer AuthenticateLogInCustomer(String tempUser , String tempPass) {
          // TODO Auto-generated method stub
          Customer customer1;
         try {
@@ -247,7 +244,7 @@ public class Admin implements AdminActions {
 		return null;
 	}
         @Override
-    public Driver AuthenticateLogInDriver(String tempUser, String tempPass) {
+public Driver AuthenticateLogInDriver(String tempUser, String tempPass) {
 		// TODO Auto-generated method stub
         try {
            String Password;
@@ -284,6 +281,7 @@ public class Admin implements AdminActions {
                        System.out.println(driver.getPassword());
                     return driver;
                    }
+                   
               }
              
            }
@@ -294,7 +292,7 @@ public class Admin implements AdminActions {
 		return null;
 	}
         @Override
-    public Manager AuthenticateLogInManger(String tempUser, String tempPass) {
+public Manager AuthenticateLogInManger(String tempUser, String tempPass) {
 		// TODO Auto-generated method stub
         try {
            String Password;
@@ -343,7 +341,7 @@ public class Admin implements AdminActions {
 		return null;
 	}
         @Override
-    public int AuthenticateEmoployee(String tempUser, String tempPass) {
+public int AuthenticateEmoployee(String tempUser, String tempPass) {
 		// TODO Auto-generated method stub
         try {
            String Password;
@@ -371,11 +369,11 @@ public class Admin implements AdminActions {
 
                if(FirstName.compareToIgnoreCase(tempUser) == 0 && Password.compareTo(tempPass) == 0){
                    Type = eElement.getAttribute("type");
-                   if(Type.compareTo("Driver")==0){
+                   if(Type.compareToIgnoreCase("Driver")==0){
                         System.out.println("Driver");
                         return 1;
                    }
-                   else if(Type.compareTo("Manager")==0){
+                   else if(Type.compareToIgnoreCase("Manager")==0){
                        System.out.println("Manager");
                        return 0;
                    }
@@ -390,7 +388,7 @@ public class Admin implements AdminActions {
 	}
 
 	@Override
-	public void saveVehicles(ArrayList<Vehicle> listT) {
+public void saveVehicles(ArrayList<Vehicle> listT) {
 		// TODO Auto-generated method stub
         try {
            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -453,14 +451,182 @@ public class Admin implements AdminActions {
             }	
 	}
 	@Override
-	public void saveTrips(ArrayList<Trip> list) {
+public void saveTrips(ArrayList<Trip> list) {
 		// TODO Auto-generated method stub
+        try {
+           DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+           DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+           Document doc = dBuilder.newDocument();
+                       // write the content into xml file
+           TransformerFactory transformerFactory = TransformerFactory.newInstance();
+           Transformer transformer = transformerFactory.newTransformer();
+           DOMSource source = new DOMSource(doc);
+           StreamResult result = new StreamResult(new File("C:\\Users\\Safynaz\\Desktop\\trips3.xml"));
+
+           Element rootElement = doc.createElement("paths");
+           doc.appendChild(rootElement);
+           for(Trip newT : list){
+            Element trip = doc.createElement("trip");
+            rootElement.appendChild(trip);
+
+            // carname element
+            Element tripId = doc.createElement("tripId");
+            tripId.appendChild(doc.createTextNode(String.valueOf(newT.getID())));
+            trip.appendChild(tripId);
+
+            Element source1 = doc.createElement("source");
+            source1.appendChild(doc.createTextNode(newT.getSource()));
+            trip.appendChild(source1);
+
+            Element destination = doc.createElement("destination");
+            destination.appendChild(doc.createTextNode(newT.getDestination()));
+            trip.appendChild(destination);
+
+            Element bookedSeats = doc.createElement("bookedSeats");
+            bookedSeats.appendChild(doc.createTextNode(String.valueOf(newT.getBookedSeats())));
+            trip.appendChild(bookedSeats);
+
+            Element isInternal = doc.createElement("isInternal");
+            String isInt = newT.getIsInternal();
+            
+            if(isInt.compareToIgnoreCase("external")==0){
+                boolean isIntBool ;
+                isIntBool = false;
+                isInternal.appendChild(doc.createTextNode(String.valueOf(isIntBool)));
+                 trip.appendChild(isInternal);
+            }
+                        
+            if(isInt.compareToIgnoreCase("internal")==0){
+                boolean isIntBool ;
+                isIntBool = true;
+                isInternal.appendChild(doc.createTextNode(String.valueOf(isIntBool)));
+                 trip.appendChild(isInternal);
+            }
+          
+            
+            Element date= doc.createElement("date");
+            Date myDate = newT.getTripDate();
+            String pattern = "dd-MMM-yyyy HH:mm:ss";
+            DateFormat df = new SimpleDateFormat(pattern);
+            String tripdate = df.format(myDate);
+            date.appendChild(doc.createTextNode(tripdate));
+            trip.appendChild(date);
+            
+            String stoptype = newT.getStopType().toString();
+            int StopInt;
+            if(stoptype.compareToIgnoreCase("ONESTOP")== 0){
+                
+                StopInt = 1;
+                Element stopType = doc.createElement("stopType");
+                stopType.appendChild(doc.createTextNode(String.valueOf(StopInt)));    
+                trip.appendChild(stopType);
+                
+            }
+            else if(stoptype.compareToIgnoreCase("NOSTOPS")== 0){
+                
+                StopInt = 0;
+                Element stopType = doc.createElement("stopType");
+                stopType.appendChild(doc.createTextNode(String.valueOf(StopInt)));    
+                trip.appendChild(stopType);
+                
+            }
+            else if(stoptype.compareToIgnoreCase("MANYSTOPS")== 0){
+                
+                StopInt = 2;
+                Element stopType = doc.createElement("stopType");
+                stopType.appendChild(doc.createTextNode(String.valueOf(StopInt)));    
+                trip.appendChild(stopType);
+                
+            }
+
+            
+            Element vehicle = doc.createElement("vehicle");
+            vehicle.appendChild(doc.createTextNode(newT.getVehicleObj().getID()));
+            trip.appendChild(vehicle);
+            
+            Element price = doc.createElement("price");
+            price.appendChild(doc.createTextNode(String.valueOf(newT.getPrice())));
+            trip.appendChild(price);
+            
+           
+            transformer.transform(source, result);
+           }  
+        } catch (Exception e){           
+           e.printStackTrace();
+            }
 
 	}
 
 	@Override
-	public void saveDrivers(ArrayList<Person> list) {
+public void saveDrivers(ArrayList<Person> list) {
 		// TODO Auto-generated method stub
+            try {
+           DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+           DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+           Document doc = dBuilder.newDocument();
+                       // write the content into xml file
+           TransformerFactory transformerFactory = TransformerFactory.newInstance();
+           Transformer transformer = transformerFactory.newTransformer();
+           DOMSource source = new DOMSource(doc);
+           StreamResult result = new StreamResult(new File("C:\\Users\\Safynaz\\Desktop\\Drivers2.xml"));
+
+           Element rootElement = doc.createElement("people");
+           doc.appendChild(rootElement);
+           for(Person newP : list){
+            Element employee = doc.createElement("employee");
+            rootElement.appendChild(employee);
+
+            // carname element
+            Element firstname = doc.createElement("firstname");
+            firstname.appendChild(doc.createTextNode(newP.getFirstName()));
+            employee.appendChild(firstname);
+
+            Element lastname = doc.createElement("lastname");
+            lastname.appendChild(doc.createTextNode(newP.getLastName()));
+            employee.appendChild(lastname);
+
+            Element password = doc.createElement("password");
+            password.appendChild(doc.createTextNode(newP.getPassword()));
+            employee.appendChild(password);
+
+
+            if(newP instanceof Manager){
+                
+                Attr attr = doc.createAttribute("type");
+                attr.setValue("Manager");
+                employee.setAttributeNode(attr);
+                
+            }
+            else if(newP instanceof Driver){
+                
+                Attr attr = doc.createAttribute("type");
+                attr.setValue("Driver");
+                employee.setAttributeNode(attr);
+                
+                Element tripId = doc.createElement("tripid");
+                String IDS[] = ((Driver) newP).getTripIDs();
+                
+                String Drivertrips = "";
+                for(int i = 0 ; i < IDS.length ; i++){
+                    
+                    Drivertrips = Drivertrips.concat(IDS[i]);
+                    if((i != IDS.length -1)){
+                      Drivertrips= Drivertrips.concat(",");
+                    }
+                    else{
+                        tripId.appendChild(doc.createTextNode(Drivertrips));
+                        employee.appendChild(tripId);
+                    }
+                }
+                
+
+                
+           }        
+            transformer.transform(source, result);
+           }  
+        } catch (Exception e){           
+           e.printStackTrace();
+            }
 		
 	}
 
