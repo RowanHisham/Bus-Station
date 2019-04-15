@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -17,7 +16,7 @@
       <AnchorPane layoutY="74.0" prefHeight="487.0" prefWidth="208.0" style="-fx-background-color: #00baff;">
          <children>
             <Circle fill="WHITE" layoutX="107.0" layoutY="86.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-            <Label layoutX="52.0" layoutY="134.0" text="Lorem Ipsum" textFill="WHITE">
+            <Label fx:id="lblUserName" layoutX="52.0" layoutY="134.0" text="Lorem Ipsum" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
@@ -50,12 +49,7 @@
                         <Font size="21.0" />
                      </font>
                   </Label>
-                  <TableView layoutX="25.0" layoutY="103.0" prefHeight="339.0" prefWidth="708.0">
-                     <columns>
-                        <TableColumn prefWidth="66.56843566894531" text="Source" />
-                        <TableColumn prefWidth="81.99655151367188" text="Destination" />
-                     </columns>
-                  </TableView>
+                  <TableView fx:id="tblBookedTrips" layoutX="25.0" layoutY="103.0" prefHeight="339.0" prefWidth="708.0" />
                </children>
             </AnchorPane>
          </children>

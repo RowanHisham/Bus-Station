@@ -8,7 +8,6 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -19,39 +18,6 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="559.0" prefWidth="981.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ManagerMainFormController">
    <children>
-      <AnchorPane fx:id="pn_Trips" layoutX="208.0" layoutY="75.0" prefHeight="487.0" prefWidth="774.0" style="-fx-background-color: #e7e7e7;">
-         <children>
-            <AnchorPane layoutX="14.0" layoutY="10.0" prefHeight="464.0" prefWidth="522.0" style="-fx-background-color: #ffffff;">
-               <children>
-                  <Label layoutX="19.0" layoutY="7.0" prefHeight="58.0" prefWidth="224.0" text="Trips" textFill="#00baff">
-                     <font>
-                        <Font size="36.0" />
-                     </font>
-                  </Label>
-                  <TableView layoutX="22.0" layoutY="70.0" prefHeight="319.0" prefWidth="476.0">
-                     <columns>
-                        <TableColumn prefWidth="75.0" text="C1" />
-                        <TableColumn prefWidth="75.0" text="C2" />
-                     </columns>
-                  </TableView>
-                  <JFXButton layoutX="187.0" layoutY="408.0" style="-fx-background-color: #00baff;" text="Cancel Selected Trip" textFill="WHITE" />
-               </children>
-            </AnchorPane>
-            <AnchorPane layoutX="536.0" layoutY="10.0" prefHeight="464.0" prefWidth="224.0" style="-fx-background-color: #f8f8f8;">
-               <children>
-                  <Label layoutX="17.0" layoutY="29.0" prefHeight="58.0" prefWidth="129.0" text="Search" textFill="#838383">
-                     <font>
-                        <Font size="23.0" />
-                     </font>
-                  </Label>
-                  <JFXTextField layoutX="28.0" layoutY="121.0" prefHeight="27.0" prefWidth="169.0" promptText="Source" />
-                  <JFXTextField layoutX="29.0" layoutY="172.0" prefHeight="27.0" prefWidth="169.0" promptText="Destination" />
-                  <JFXTextField layoutX="27.0" layoutY="225.0" prefHeight="27.0" prefWidth="169.0" promptText="Number of avaliable seats" />
-                  <JFXButton layoutX="65.0" layoutY="399.0" style="-fx-background-color: #00baff;" text="Apply Filters" textFill="WHITE" />
-               </children>
-            </AnchorPane>
-         </children>
-      </AnchorPane>
       <AnchorPane fx:id="pn_addtrip" layoutX="208.0" layoutY="74.0" prefHeight="486.0" prefWidth="774.0" style="-fx-background-color: #e7e7e7;">
          <children>
             <AnchorPane layoutX="12.0" layoutY="13.0" prefHeight="464.0" prefWidth="749.0" style="-fx-background-color: #ffffff;">
@@ -128,10 +94,38 @@
                </children></AnchorPane>
          </children>
       </AnchorPane>
+      <AnchorPane fx:id="pn_Trips" layoutX="208.0" layoutY="75.0" prefHeight="487.0" prefWidth="774.0" style="-fx-background-color: #e7e7e7;">
+         <children>
+            <AnchorPane layoutX="14.0" layoutY="10.0" prefHeight="464.0" prefWidth="522.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <Label layoutX="19.0" layoutY="7.0" prefHeight="58.0" prefWidth="224.0" text="Trips" textFill="#00baff">
+                     <font>
+                        <Font size="36.0" />
+                     </font>
+                  </Label>
+                  <TableView fx:id="tblBookedTrips" layoutX="22.0" layoutY="70.0" prefHeight="319.0" prefWidth="476.0" />
+                  <JFXButton layoutX="187.0" layoutY="408.0" style="-fx-background-color: #00baff;" text="Cancel Selected Trip" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="536.0" layoutY="10.0" prefHeight="464.0" prefWidth="224.0" style="-fx-background-color: #f8f8f8;">
+               <children>
+                  <Label layoutX="17.0" layoutY="29.0" prefHeight="58.0" prefWidth="129.0" text="Search" textFill="#838383">
+                     <font>
+                        <Font size="23.0" />
+                     </font>
+                  </Label>
+                  <JFXTextField fx:id="txt_Source" layoutX="28.0" layoutY="121.0" prefHeight="27.0" prefWidth="169.0" promptText="Source" />
+                  <JFXTextField fx:id="txt_Destination" layoutX="29.0" layoutY="172.0" prefHeight="27.0" prefWidth="169.0" promptText="Destination" />
+                  <JFXTextField fx:id="txt_NumOfSeats2" layoutX="27.0" layoutY="225.0" prefHeight="27.0" prefWidth="169.0" promptText="Number of avaliable seats" />
+                  <JFXButton fx:id="btn_ApplyFilter" layoutX="65.0" layoutY="399.0" onAction="#buttonOnAction" style="-fx-background-color: #00baff;" text="Apply Filters" textFill="WHITE" />
+               </children>
+            </AnchorPane>
+         </children>
+      </AnchorPane>
       <AnchorPane layoutY="74.0" prefHeight="487.0" prefWidth="208.0" style="-fx-background-color: #00baff;">
          <children>
             <Circle fill="WHITE" layoutX="107.0" layoutY="86.0" radius="43.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-            <Label layoutX="52.0" layoutY="134.0" text="Lorem Ipsum" textFill="WHITE">
+            <Label fx:id="lblUserName" layoutX="52.0" layoutY="134.0" text="Lorem Ipsum" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>

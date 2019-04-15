@@ -57,8 +57,8 @@ public class SampleController {
         		//pass customer to customer form from Main
         		customerMainFormController.setCustomer(Main.getInstance().getCustomer());
         		customerMainFormController.initializeData();
-        		customerMainFormController.setTripsTable(customerMainFormController.getCustomer().getTripsList());
-        		customerMainFormController.setTable(customerMainFormController.getCustomer().getTripsList());
+        		//customerMainFormController.setTripsTable(customerMainFormController.getCustomer().getTripsList());
+        		//customerMainFormController.setTable(customerMainFormController.getCustomer().getTripsList());
         		Scene customerMainFormScene = new Scene(root);
         		Stage window = (Stage)(((Node) event.getSource()).getScene().getWindow());
         		window.setScene(customerMainFormScene);
@@ -77,11 +77,34 @@ public class SampleController {
     		String password = txt_PasswordEmp.getText();
     		
     		System.out.println("here");
-    		Parent root = (AnchorPane)FXMLLoader.load(getClass().getResource("driverMainForm.fxml"));
-    		Scene managerMainFormScene = new Scene(root);
-    		Stage window = (Stage)(((Node) event.getSource()).getScene().getWindow());
-    		window.setScene(managerMainFormScene);
-    		window.show();
+    		if(admin.AuthenticateEmoployee(username, password) == 1) {
+    			Main.getInstance().setDriver( admin.AuthenticateLogInDriver(username, password));
+    			FXMLLoader loader = new FXMLLoader(getClass().getResource("driverMainForm.fxml"));
+    			Parent root = (AnchorPane)loader.load();
+        		DriverMainFormController driverMainFormController = (DriverMainFormController) loader.getController();
+        		driverMainFormController.setDriver(Main.getInstance().getDriver());
+        		driverMainFormController.initializeData();
+        		Scene managerMainFormScene = new Scene(root);
+        		Stage window = (Stage)(((Node) event.getSource()).getScene().getWindow());
+        		window.setScene(managerMainFormScene);
+        		window.show();
+    		}else if(admin.AuthenticateEmoployee(username, password) == 0) {
+    			//manager
+    			Main.getInstance().setManager( admin.AuthenticateLogInManger(username, password));
+    			FXMLLoader loader = new FXMLLoader(getClass().getResource("ManagerMainForm.fxml"));
+    			Parent root = (AnchorPane)loader.load();
+        		ManagerMainFormController managerMainFormController = (ManagerMainFormController) loader.getController();
+        		managerMainFormController.setManager(Main.getInstance().getManager());
+        		managerMainFormController.initializeData();
+        		Scene managerMainFormScene = new Scene(root);
+        		Stage window = (Stage)(((Node) event.getSource()).getScene().getWindow());
+        		window.setScene(managerMainFormScene);
+        		window.show();
+    		}else {
+    			//error
+    			lbl_WarningEmp.setVisible(true);
+    		}
+    		
     	}else if( event.getSource() == btn_Close) {
     		Stage window = (Stage)(((Node) event.getSource()).getScene().getWindow());
     		window.close();

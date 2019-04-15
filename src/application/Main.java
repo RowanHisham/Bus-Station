@@ -14,7 +14,25 @@ import javafx.fxml.FXMLLoader;
 public class Main extends Application {
 	
 	private Customer customer;
+	private Driver driver;
+	private Manager manager;
 	
+	public Manager getManager() {
+		return manager;
+	}
+
+	public void setManager(Manager manager) {
+		this.manager = manager;
+	}
+
+	public Driver getDriver() {
+		return driver;
+	}
+
+	public void setDriver(Driver driver) {
+		this.driver = driver;
+	}
+
 	private static Main instance;
 	
 	// static method to get instance of Main

@@ -181,7 +181,6 @@ public class CustomerMainFormController {
     					}
 
     					this.setTable(customer.getTripsList());
-                                       
     					return;
     				}
     			}
@@ -199,9 +198,11 @@ public class CustomerMainFormController {
 		System.out.println(this.customer.getFirstName());
 	}
     
-    public void initializeData() {
+    public void initializeData() throws IOException {
     	lblUserName.setText(customer.getFirstName() + " " + customer.getLastName());
     	customer.setTripsList(admin.listTrips(admin.listVechiles()));
+    	setTripsTable(customer.getTripsList());
+    	setTable(customer.getTripsList());
     }
     
     public void setTripsTable(ArrayList<Trip> tripList) {

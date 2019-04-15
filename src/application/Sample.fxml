@@ -81,7 +81,7 @@
                   <Font size="19.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="txt_UserNameEmp" focusColor="#00baff" layoutX="104.0" layoutY="221.0" prefHeight="33.0" prefWidth="191.0" promptText="credentials" text="username" />
+            <JFXTextField fx:id="txt_UserNameEmp" focusColor="#00baff" layoutX="104.0" layoutY="221.0" prefHeight="33.0" prefWidth="191.0" promptText="username" />
             <Label fx:id="lbl_WarningEmp" layoutX="106.0" layoutY="318.0" prefHeight="17.0" prefWidth="191.0" text="Wrong username or password" textFill="RED" visible="false">
                <font>
                   <Font size="10.0" />
