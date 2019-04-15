@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 
 import javafx.event.ActionEvent;
@@ -11,6 +12,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -32,7 +35,7 @@ public class ManagerMainFormController {
 	}
 
 	@FXML
-    private JFXButton btn_logOutCustomer, btn_Trips, btn_addtrip, btn_Close, btn_ApplyFilter;
+    private JFXButton btn_logOutCustomer, btn_Trips, btn_addtrip, btn_Close, btn_ApplyFilter, btn_savenewtrip;
 	
 	@FXML
 	private AnchorPane pn_Trips, pn_title, pn_addtrip;
@@ -42,6 +45,18 @@ public class ManagerMainFormController {
 	
 	@FXML
 	private JFXTextField txt_Source,txt_Destination,txt_NumOfSeats2;
+	
+	@FXML
+	private JFXRadioButton RB_Internal, RB_External, RB_NonStop, RB_OneStop, RB_ManyStops;
+	
+	@FXML
+	private DatePicker date;
+	
+	@FXML
+	private ComboBox<String> driverBox; 
+	
+	@FXML
+	private ComboBox<String> vehicleBox; 
 	
 	@FXML
 	TableView<Trip> tblBookedTrips = new TableView<Trip>();
@@ -63,7 +78,7 @@ public class ManagerMainFormController {
     	}else if( event.getSource() == btn_Close) {
     		Stage window = (Stage)(((Node) event.getSource()).getScene().getWindow());
     		window.close();
-    	}else if(event.getSource() == btn_ApplyFilter) {
+    	}else if(event.getSource() == btn_ApplyFilter){
     		String source = txt_Source.getText();
     		String destination = txt_Destination.getText();
     		String num = txt_NumOfSeats2.getText();
@@ -73,6 +88,8 @@ public class ManagerMainFormController {
     		int numOfSeats = Integer.parseInt(num);
 
     		this.setTable(manager.listTrip(source,destination, numOfSeats));
+    	}else if( event.getSource() == btn_savenewtrip) {
+    		
     	}
     }
     
@@ -81,6 +98,13 @@ public class ManagerMainFormController {
     	lblUserName.setText(manager.getFirstName() + " " + manager.getLastName());
     	manager.setTripsList(admin.listTrips(admin.listVechiles()));
     	setTable(manager.getTripsList());
+    	for(Person x : manager.getDriversList()) {
+    		driverBox.getItems().add(x.getFirstName());
+    	}
+    	
+    	for(Vehicle x : manager.getVehiclesList()) {
+    		vehicleBox.getItems().add(x.getID());
+    	}
     }
     
     public void setTable(ArrayList<Trip> tripList) throws IOException {

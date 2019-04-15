@@ -69,6 +69,7 @@ public class CustomerMainFormController {
     @FXML
     void buttonOnAction(ActionEvent event) throws IOException {
     	if(event.getSource() == btn_logOutCustomer) {
+    		admin.saveTrips(customer.getTripsList());
     		Parent root = (AnchorPane)FXMLLoader.load(getClass().getResource("Sample.fxml"));
     		Scene customerMainFormScene = new Scene(root);
     		Stage window = (Stage)(((Node) event.getSource()).getScene().getWindow());
@@ -104,6 +105,8 @@ public class CustomerMainFormController {
     		pn_booking.setVisible(false);
     	}else if ( event.getSource() == btn_Confirm) {
     		Trip trip = tbl_Trips.getSelectionModel().getSelectedItem();
+    		System.out.println("HERE");
+    		System.out.println(trip.getBookedSeats());
     		if(customer.checkAvailability(trip, null, Integer.parseInt(txt_NumOfSeats.getText()))){
        			System.out.println(!btn_isRoundTrip.isSelected());
     			Ticket ticket = customer.reserve(trip, null, customer, Integer.parseInt(txt_NumOfSeats.getText()), !btn_isRoundTrip.isSelected());
@@ -111,7 +114,6 @@ public class CustomerMainFormController {
     			Alert alert = new Alert(AlertType.CONFIRMATION, "price of booked trip(s) = ".concat(Double.toString(ticket.getPriceOfTrip())), ButtonType.CLOSE);
         		alert.showAndWait();
         		
- 
     			this.setTable(customer.getTripsList());
     		}else {
 
@@ -128,6 +130,7 @@ public class CustomerMainFormController {
     		pn_AccountSettings.toFront();
     		pn_title.toFront();
     	}else if( event.getSource() == btn_Close) {
+    		admin.saveTrips(customer.getTripsList());
     		Stage window = (Stage)(((Node) event.getSource()).getScene().getWindow());
     		window.close();
     	}else if( event.getSource() == btn_CancelTrip) {
@@ -150,9 +153,10 @@ public class CustomerMainFormController {
     						int c=0;
     						for(Trip x : customer.getTripsList()) {
     							if( x.getID() == ID) {
-    								customer.getTripsList().get(c).setBookedSeats( customer.getTripsList().get(c).getBookedSeats() + 1);
+    								customer.getTripsList().get(c).setBookedSeats( customer.getTripsList().get(c).getBookedSeats() - 1);
     								System.out.println(customer.getTripsList().get(c).getBookedSeats());
     							}
+    							c++;
     						}
     						
     						this.setTable(customer.getTripsList());

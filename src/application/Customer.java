@@ -77,16 +77,31 @@ public class Customer extends Person implements CustomerActions {
 	public boolean checkAvailability(Trip selected1, Trip selected2, Integer numOfSeats) {
 		// TODO Auto-generated method stub
 		int numOfAvailableSeats = selected1.getVehicleObj().getNumberOfSeats() - selected1.getBookedSeats();
+		System.out.println(selected1.getBookedSeats());
 		return  numOfAvailableSeats >= numOfSeats;
 	}
 
 	@Override
 	public Ticket reserve(Trip selected, Trip selected2, Customer customer, Integer numOfSeats, boolean isOneWay) {
 		// TODO Auto-generated method stub
+		System.out.println("here");
+		System.out.println(selected.getBookedSeats());
 		final int N = customer.getTripIDs().length;
 		String[] newTripIds = Arrays.copyOf(customer.getTripIDs(), N + 1);
 		newTripIds[N] = Integer.toString(selected.getID());
 		customer.setTripIDs(newTripIds);
+		
+		System.out.println(selected.getBookedSeats());
+		int c=0;
+		for(Trip x : customer.getTripsList()) {
+			if( x.getID() == selected.getID()) {
+				System.out.println( x.getID());
+				System.out.println(customer.getTripsList().get(c).getBookedSeats());
+				customer.getTripsList().get(c).setBookedSeats( customer.getTripsList().get(c).getBookedSeats() + numOfSeats);
+				System.out.println(customer.getTripsList().get(c).getBookedSeats());
+			}
+			c++;
+		}
 		Ticket ticket = new Ticket(selected.getPrice(),numOfSeats,isOneWay);
 		return ticket;
 	}
