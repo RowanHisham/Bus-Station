@@ -70,6 +70,7 @@ public class CustomerMainFormController {
     void buttonOnAction(ActionEvent event) throws IOException {
     	if(event.getSource() == btn_logOutCustomer) {
     		admin.saveTrips(customer.getTripsList());
+               admin.ModifyCustomer(customer);
     		Parent root = (AnchorPane)FXMLLoader.load(getClass().getResource("Sample.fxml"));
     		Scene customerMainFormScene = new Scene(root);
     		Stage window = (Stage)(((Node) event.getSource()).getScene().getWindow());
@@ -131,6 +132,8 @@ public class CustomerMainFormController {
     		pn_title.toFront();
     	}else if( event.getSource() == btn_Close) {
     		admin.saveTrips(customer.getTripsList());
+                admin.ModifyCustomer(customer);
+                        
     		Stage window = (Stage)(((Node) event.getSource()).getScene().getWindow());
     		window.close();
     	}else if( event.getSource() == btn_CancelTrip) {

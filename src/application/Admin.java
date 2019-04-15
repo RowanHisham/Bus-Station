@@ -34,8 +34,8 @@ public class Admin implements AdminActions {
          String Type;
 	 //int numseats;
         
-        // File inputFile = new File("C:\\Users\\Safynaz\\Desktop\\cars.xml");
-         File inputFile = new File("/Users/rowanhisham/eclipse-workspace/BusStation/Vechile.xml");
+         File inputFile = new File("C:\\Users\\Safynaz\\Desktop\\cars.xml");
+         //File inputFile = new File("/Users/rowanhisham/eclipse-workspace/BusStation/Vechile.xml");
          DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
          DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
          Document doc = dBuilder.parse(inputFile);
@@ -97,8 +97,8 @@ public ArrayList<Trip> listTrips(ArrayList<Vehicle> listVehicle) {
             String Vehicle;
             int stop;
             SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss");
-       //     File inputFile = new File("C:\\Users\\Safynaz\\Desktop\\trips2.xml");
-            File inputFile = new File("/Users/rowanhisham/eclipse-workspace/BusStation/trips.xml");
+            File inputFile = new File("C:\\Users\\Safynaz\\Desktop\\trips2.xml");
+         //   File inputFile = new File("/Users/rowanhisham/eclipse-workspace/BusStation/trips.xml");
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
@@ -166,8 +166,8 @@ public ArrayList<Person> listDrivers() {
            String LastName;
            String TripId;
            String Type;
-           //File inputFile = new File("C:\\Users\\Safynaz\\Desktop\\Driver.xml");
-           File inputFile = new File("/Users/rowanhisham/eclipse-workspace/BusStation/Driver.xml");
+           File inputFile = new File("C:\\Users\\Safynaz\\Desktop\\Driver.xml");
+         //  File inputFile = new File("/Users/rowanhisham/eclipse-workspace/BusStation/Driver.xml");
            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
            Document doc = dBuilder.parse(inputFile);
@@ -211,8 +211,8 @@ public Customer AuthenticateLogInCustomer(String tempUser , String tempPass) {
            String FirstName;
            String LastName;
            String TripId;
-          // File inputFile = new File("C:\\Users\\Safynaz\\Desktop\\test.xml");
-           File inputFile = new File("/Users/rowanhisham/eclipse-workspace/BusStation/test.xml");
+           File inputFile = new File("C:\\Users\\Safynaz\\Desktop\\test.xml");
+          // File inputFile = new File("/Users/rowanhisham/eclipse-workspace/BusStation/test.xml");
            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
            Document doc = dBuilder.parse(inputFile);
@@ -244,6 +244,75 @@ public Customer AuthenticateLogInCustomer(String tempUser , String tempPass) {
       
 		return null;
 	}
+            @Override
+        public void ModifyCustomer(Customer x) {
+         // TODO Auto-generated method stub
+         Customer customer1;
+        try {
+            System.out.println("PRINEME");
+           String UserName ;
+           String Password;
+           String FirstName;
+           String LastName;
+           String TripId;
+           String tempFirstName = x.getFirstName();
+            System.out.println(tempFirstName);
+            
+           String temppassword = x.getPassword();
+           System.out.println(temppassword);
+           File inputFile = new File("C:\\Users\\Safynaz\\Desktop\\test.xml");
+          // File inputFile = new File("/Users/rowanhisham/eclipse-workspace/BusStation/test.xml");
+           DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+           DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+           Document doc = dBuilder.parse(inputFile);
+           doc.getDocumentElement().normalize();
+           System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+           NodeList nList = doc.getElementsByTagName("person");
+           System.out.println("----------------------------");
+            System.out.println(nList.getLength());
+             
+           for (int temp = 0; temp < nList.getLength(); temp++) {
+               System.out.println("IMHERE");
+               
+              Node nNode = nList.item(temp);
+              if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                  System.out.println("INIF");
+                  Element eElement = (Element) nNode;
+                   FirstName =  eElement.getElementsByTagName("firstname").item(0).getTextContent();
+                   LastName = eElement.getElementsByTagName("lastname").item(0).getTextContent();
+                   UserName= eElement.getElementsByTagName("username").item(0).getTextContent();
+                   Password =  eElement.getElementsByTagName("password").item(0).getTextContent();
+                   
+               if(FirstName.compareToIgnoreCase(tempFirstName) == 0 && Password.compareTo(temppassword) == 0){
+                   System.out.println("INCOMPAr");
+                    String NEWIDs[] = x.getTripIDs();
+                    String Newtrips = ""; 
+                    System.out.println("wm");
+                for(int i = 0 ; i < NEWIDs.length ; i++){
+                    Newtrips = Newtrips.concat(NEWIDs[i]);
+                    if((i != NEWIDs.length -1)){
+                      Newtrips= Newtrips.concat(",");
+                    }
+                    else{
+                        System.out.println("mew");
+                        
+                        eElement.getElementsByTagName("tripid").item(0).setTextContent(Newtrips);
+                        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+                        Transformer transformer = transformerFactory.newTransformer();
+                        DOMSource source = new DOMSource(doc);
+                        StreamResult result = new StreamResult(new File("C:\\Users\\Safynaz\\Desktop\\test.xml"));
+                        transformer.transform(source, result);
+           
+                   }
+                }
+               }
+              }
+           }
+          
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+	}
         @Override
 public Driver AuthenticateLogInDriver(String tempUser, String tempPass) {
 		// TODO Auto-generated method stub
@@ -253,8 +322,8 @@ public Driver AuthenticateLogInDriver(String tempUser, String tempPass) {
            String LastName;
            String TripId;
            String Type;
-          // File inputFile = new File("C:\\Users\\Safynaz\\Desktop\\Driver.xml");
-           File inputFile = new File("/Users/rowanhisham/eclipse-workspace/BusStation/Driver.xml");
+           File inputFile = new File("C:\\Users\\Safynaz\\Desktop\\Driver.xml");
+           //File inputFile = new File("/Users/rowanhisham/eclipse-workspace/BusStation/Driver.xml");
            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
            Document doc = dBuilder.parse(inputFile);
@@ -292,6 +361,67 @@ public Driver AuthenticateLogInDriver(String tempUser, String tempPass) {
         }
 		return null;
 	}
+          @Override
+public Driver ModifyDriver(Driver x) {
+		// TODO Auto-generated method stub
+        try {
+           String Password;
+           String FirstName;
+           String LastName;
+           String TripId;
+           String Type;
+           File inputFile = new File("C:\\Users\\Safynaz\\Desktop\\Driver.xml");
+           String tempUser = x.getFirstName();
+           String tempPass= x.getPassword();
+           //File inputFile = new File("/Users/rowanhisham/eclipse-workspace/BusStation/Driver.xml");
+           DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+           DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+           Document doc = dBuilder.parse(inputFile);
+           doc.getDocumentElement().normalize();
+           System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+           NodeList nList = doc.getElementsByTagName("employee");
+           System.out.println("----------------------------");
+           
+           for (int temp = 0; temp < nList.getLength(); temp++) {
+              Node nNode = nList.item(temp);
+              if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                  Element eElement = (Element) nNode;
+                   FirstName =  eElement.getElementsByTagName("firstname").item(0).getTextContent();
+                   LastName = eElement.getElementsByTagName("lastname").item(0).getTextContent();
+                   Password =  eElement.getElementsByTagName("password").item(0).getTextContent();
+
+               if(FirstName.compareToIgnoreCase(tempUser) == 0 && Password.compareTo(tempPass) == 0){
+                   Type = eElement.getAttribute("type");
+                   if(Type.compareTo("Driver")==0){
+                      String NEWIDs[] = x.getTripIDs();
+                      String Newtrips = ""; 
+                      for(int i = 0 ; i < NEWIDs.length ; i++){
+                            Newtrips = Newtrips.concat(NEWIDs[i]);
+                            if((i != NEWIDs.length -1)){
+                            Newtrips= Newtrips.concat(",");
+                             }
+                             else{
+                            eElement.getElementsByTagName("tripid").item(0).setTextContent(Newtrips);
+                    }
+                      }
+                    TripId = eElement.getElementsByTagName("tripid").item(0).getTextContent();
+                    String IDs[] = TripId.split(",");
+                    Driver driver = new Driver(FirstName , LastName , Password , IDs);
+                       System.out.println(driver.getFirstName());
+                       System.out.println(driver.getLastName());
+                       System.out.println(driver.getPassword());
+                    return driver;
+                   }
+                   
+              }
+             
+           }
+          }
+        } catch (Exception e) {
+           e.printStackTrace();
+        }
+		return null;
+	}
         @Override
 public Manager AuthenticateLogInManger(String tempUser, String tempPass) {
 		// TODO Auto-generated method stub
@@ -300,8 +430,8 @@ public Manager AuthenticateLogInManger(String tempUser, String tempPass) {
            String FirstName;
            String LastName;
            String Type;
-           //File inputFile = new File("C:\\Users\\Safynaz\\Desktop\\Driver.xml");
-           File inputFile = new File("/Users/rowanhisham/eclipse-workspace/BusStation/Driver.xml");
+           File inputFile = new File("C:\\Users\\Safynaz\\Desktop\\Driver.xml");
+          // File inputFile = new File("/Users/rowanhisham/eclipse-workspace/BusStation/Driver.xml");
            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
            Document doc = dBuilder.parse(inputFile);
@@ -350,8 +480,8 @@ public int AuthenticateEmoployee(String tempUser, String tempPass) {
            String LastName;
            String TripId;
            String Type;
-          // File inputFile = new File("C:\\Users\\Safynaz\\Desktop\\Driver.xml");
-           File inputFile = new File("/Users/rowanhisham/eclipse-workspace/BusStation/Driver.xml");
+           File inputFile = new File("C:\\Users\\Safynaz\\Desktop\\Driver.xml");
+          // File inputFile = new File("/Users/rowanhisham/eclipse-workspace/BusStation/Driver.xml");
            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
            Document doc = dBuilder.parse(inputFile);
@@ -399,8 +529,8 @@ public void saveVehicles(ArrayList<Vehicle> listT) {
            TransformerFactory transformerFactory = TransformerFactory.newInstance();
            Transformer transformer = transformerFactory.newTransformer();
            DOMSource source = new DOMSource(doc);
-           //StreamResult result = new StreamResult(new File("C:\\Users\\Safynaz\\Desktop\\cars2.xml"));
-           StreamResult result = new StreamResult(new File("/Users/rowanhisham/eclipse-workspace/BusStation/cars2.xml"));
+           StreamResult result = new StreamResult(new File("C:\\Users\\Safynaz\\Desktop\\cars2.xml"));
+           //StreamResult result = new StreamResult(new File("/Users/rowanhisham/eclipse-workspace/BusStation/cars2.xml"));
 
            Element rootElement = doc.createElement("Vehicle");
            doc.appendChild(rootElement);
@@ -463,8 +593,8 @@ public void saveTrips(ArrayList<Trip> list) {
            TransformerFactory transformerFactory = TransformerFactory.newInstance();
            Transformer transformer = transformerFactory.newTransformer();
            DOMSource source = new DOMSource(doc);
-           //StreamResult result = new StreamResult(new File("C:\\Users\\Safynaz\\Desktop\\trips3.xml"));
-           StreamResult result = new StreamResult(new File("/Users/rowanhisham/eclipse-workspace/BusStation/trips2.xml"));
+           StreamResult result = new StreamResult(new File("C:\\Users\\Safynaz\\Desktop\\trips3.xml"));
+           //StreamResult result = new StreamResult(new File("/Users/rowanhisham/eclipse-workspace/BusStation/trips2.xml"));
 
            Element rootElement = doc.createElement("paths");
            doc.appendChild(rootElement);
@@ -571,14 +701,13 @@ public void saveDrivers(ArrayList<Person> list) {
            TransformerFactory transformerFactory = TransformerFactory.newInstance();
            Transformer transformer = transformerFactory.newTransformer();
            DOMSource source = new DOMSource(doc);
-           //StreamResult result = new StreamResult(new File("C:\\Users\\Safynaz\\Desktop\\Drivers2.xml"));
-           StreamResult result = new StreamResult(new File("/Users/rowanhisham/eclipse-workspace/BusStation/Drivers2.xml"));
-
+           StreamResult result = new StreamResult(new File("C:\\Users\\Safynaz\\Desktop\\Drivers2.xml"));
+           //StreamResult result = new StreamResult(new File("/Users/rowanhisham/eclipse-workspace/BusStation/Drivers2.xml"));
 
            Element rootElement = doc.createElement("people");
            doc.appendChild(rootElement);
            for(Person newP : list){
-            Element employee = doc.createElement("employee");
+                Element employee = doc.createElement("employee");
             rootElement.appendChild(employee);
 
             // carname element
@@ -623,9 +752,6 @@ public void saveDrivers(ArrayList<Person> list) {
                         employee.appendChild(tripId);
                     }
                 }
-                
-
-                
            }        
             transformer.transform(source, result);
            }  
